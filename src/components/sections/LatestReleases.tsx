@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { PRODUCTS } from "@/data/products";
@@ -216,13 +217,17 @@ export function LatestReleases() {
           ref={trackRef}
           className="flex gap-4 md:gap-6 w-max will-change-transform"
         >
-          {PRODUCTS.map((item) => (
-            <div
+          {PRODUCTS.map((item, index) => (
+            <motion.div
               key={item.id}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: index * 0.15, ease: [0.23, 1, 0.32, 1] }}
               className="w-[85vw] sm:w-[45vw] lg:w-[calc((100vw-48px-48px)/3)] h-[65vh] min-h-[420px] max-h-[650px] shrink-0"
             >
               <ProductCard product={item} className="w-full h-full" />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

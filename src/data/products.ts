@@ -112,7 +112,6 @@ export const PRODUCTS: Product[] = [
       "https://cdn.fanmarket.app.br/69c91c06e039ef33fb1528e7_camisa-goleiro-1-mas.png",
       "https://cdn.fanmarket.app.br/69c91c0769231ba67ed4469d_camisa-goleiro-1-mas.png",
       "https://cdn.fanmarket.app.br/69c91c07e039ef33fb1528f1_camisa-goleiro-1-mas.png",
-      
     ],
     description:
       "Defender as cores do Coxa exige uma camisa à altura. A Camisa Goleiro 1 2026 foi pensada para oferecer liberdade total de movimento, com corte atlético e tecidos de alta performance em combinação, jacquard liso na frente e soft rider nas costas e mangas, garantindo leveza onde mais se precisa.",
@@ -383,7 +382,7 @@ export const PRODUCTS: Product[] = [
     brand: "Diadora",
     sizes: ["M", "G", "GG"],
     images: [
-      "https://cdn.fanmarket.app.br/69c91c01e039ef33fb1528b4_camisa-goleiro-1-mas.png",
+      "/imagens/Jaqueta-1.png",
       "https://cdn.fanmarket.app.br/69c91c0269231ba67ed431fd_camisa-goleiro-1-mas.png",
     ],
     description:
@@ -420,24 +419,25 @@ export const PRODUCTS: Product[] = [
   {
     id: "casual-01",
     slug: "moletom-casual-mas",
-    name: "MOLETOM HOODIE CASUAL",
-    subtitle: "Moletom Essencial Coritiba Logo",
+    name: "Camisa Coritiba Oficial Jogo 3 Masculino Verde e Branco",
+    subtitle: "Terceira camisa Coritiba",
     category: "casual",
     gender: "masculino",
-    price: 349.99,
+    price: 509.99,
     installments: "ou 5x de R$ 69,99 sem juros",
     discountInfo: "Sócio Coxa tem desconto de 15%",
     vendor: "Coxa Store",
     brand: "Coritiba Oficial",
     sizes: ["P", "G", "3G"],
     images: [
-      "https://cdn.fanmarket.app.br/69c863e72a35aa109ae884d4_camisa-jogo-1-mas.png",
-      "https://cdn.fanmarket.app.br/69c91c01e039ef33fb1528b4_camisa-goleiro-1-mas.png",
+      "/imagens/camisa-3.png",
+      "/imagens/camisa-3-costas.png",
+      "/imagens/camisa-3-lado.png",
     ],
     description:
-      "O moletom essencial para os dias de arquibancada com o frio curitibano. Algodão peluciado premium.",
-    tagline: "O verde te aquece.",
-    specs: [{ label: "Tecido", value: "Algodão peluciado" }],
+      "Apresentamos a Camisa Coritiba Oficial Jogo 3 Masculino Branco e Verde, uma peça exclusiva para torcedores que desejam demonstrar seu amor pelo Coritiba Foot Ball Club. Confeccionada em poliéster de alta qualidade, esta camisa oferece conforto, leveza e respirabilidade, ideal para acompanhar os jogos ou usar no dia a dia. Com design moderno que integra as cores branco e verde, ela representa com autenticidade a tradição do clube. ",
+    tagline: "Camisa de Time.",
+    specs: [{ label: "Tecido", value: "Poliéster" }],
   },
 ];
 

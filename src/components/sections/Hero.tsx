@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { Reveal } from "@/components/motion/Reveal";
+import { WaveText } from "@/components/ui/WaveText";
+import { MagneticEffect } from "@/components/ui/MagneticEffect";
 import { Button } from "@/components/ui/Button";
 import { Package, ArrowRight } from "lucide-react";
 
@@ -55,16 +57,7 @@ export function Hero() {
     };
   }, []);
 
-  // Itens do ticker
-  const tickerItems = [
-    " SÓCIO COXA TEM DESCONTO DE ATÉ 20%!",
-    " PARCELAMENTO EM ATÉ 6X SEM JUROS!",
-    " COMPRE AGORA A NOVA COLEÇÃO CORITIBA DIADORA 2026!",
-    " FRETE GRÁTIS PARA CURITIBA E REGIÃO!",
-    " PARCELAMENTO EM ATÉ 6X SEM JUROS!",
-    " TROCA GRÁTIS EM ATÉ 30 DIAS",
-    " GANHE BRINDES EXCLUSIVOS ACIMA DE R$250",
-  ];
+
 
   return (
     <section
@@ -95,23 +88,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* ── NEWS TICKER — Colado na base da seção ────────────────── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-30 overflow-hidden select-none"
-        style={{ backgroundColor: "#115740" }}
-      >
-        <div className="ticker-track flex whitespace-nowrap py-2.5">
-          {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
-            <span
-              key={i}
-              className="inline-flex items-center text-white font-bold text-xs md:text-sm tracking-wide mx-8 shrink-0 uppercase"
-            >
-              {item}
-              <span className="mx-6 text-white/25 text-lg">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
+
 
       {/* ── CONTEÚDO CENTRAL (animado pelo ScrollTrigger) ─────────── */}
       <div
@@ -120,13 +97,13 @@ export function Hero() {
       >
         <TextReveal
           as="h1"
-          className="font-black font-heading tracking-tighter uppercase text-fluid-h1 flex flex-col items-center gap-3 cursor-pointer relative z-20 group"
+          className="font-black font-heading tracking-tighter uppercase text-fluid-h1 flex flex-col items-center gap-2 cursor-pointer relative z-20 group drop-shadow-2xl"
         >
-          <span className="block text-[var(--color-primary)] leading-none neon-border">
-            NOVA
+          <span className="block text-[var(--color-primary)] leading-none text-shadow-sm">
+            <WaveText text="NOVA" filterId="hero-wave-nova" turbulence />
           </span>
-          <span className="block text-white leading-none neon-border">
-            COLEÇÃO
+          <span className="block text-white leading-none text-shadow-sm">
+            <WaveText text="COLEÇÃO" filterId="hero-wave-colecao" turbulence />
           </span>
         </TextReveal>
 
@@ -142,8 +119,12 @@ export function Hero() {
           </p>
         </Reveal>
 
-        <Reveal type="scale" delay={1.0} className="mt-10 flex gap-4">
-          <Button variant="primary">Explorar Agora</Button>
+        <Reveal type="scale" delay={1.0} className="mt-10 flex gap-4 group">
+          <MagneticEffect strength={0.4}>
+            <Button variant="primary" className="hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/70 border border-transparent hover:border-[var(--color-primary)]/30 transition-all duration-300">
+              Explorar Agora
+            </Button>
+          </MagneticEffect>
         </Reveal>
 
         {/* TRACK ORDER HERO CARD/LINK */}

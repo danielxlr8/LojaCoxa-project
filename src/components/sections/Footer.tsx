@@ -9,7 +9,7 @@ import googlePlayIconData from "../../../public/imagens/google play.json";
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white pt-32 pb-12 overflow-hidden border-t border-white/5">
+    <footer className="bg-black text-white pb-12 overflow-hidden border-t border-white/5" style={{ paddingTop: "clamp(40px, 5vw, 80px)" }}>
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 mb-32">
           <div className="lg:col-span-4 lg:pr-8">

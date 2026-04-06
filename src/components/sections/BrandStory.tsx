@@ -9,7 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 export function BrandStory() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const marqueeRef = useRef<HTMLDivElement>(null);
+  const text1Ref = useRef<HTMLDivElement>(null);
+  const text2Ref = useRef<HTMLDivElement>(null);
+  const text3Ref = useRef<HTMLDivElement>(null);
   // Armazena o tempo-alvo para a interpolação RAF
   const targetTimeRef = useRef(0);
   const rafRef = useRef<number | null>(null);
@@ -17,8 +19,10 @@ export function BrandStory() {
   useEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
-    const marquee = marqueeRef.current;
-    if (!section || !video || !marquee) return;
+    const text1 = text1Ref.current;
+    const text2 = text2Ref.current;
+    const text3 = text3Ref.current;
+    if (!section || !video || !text1 || !text2 || !text3) return;
 
     // ─── RAF INTERPOLATION ──────────────────────────────────────────
     // Em vez de setar currentTime diretamente no onUpdate (que causa stutter),
@@ -61,13 +65,24 @@ export function BrandStory() {
           }
         });
 
-        // Marquee: começa na posição natural e percorre -55% sincronizado
+        // Revelação Cinemática: o vídeo surge do escuro profundo e ilumina ao longo do scroll
+        // Combinando o movimento de zoom e a iluminação crescente
         tl.fromTo(
-          marquee,
-          { xPercent: 0 },
-          { xPercent: -55, ease: "none", duration: 1 },
-          0 // label "0" = começa no mesmo momento que o scroll inicia
+          video, 
+          { opacity: 0.05, scale: 1 }, 
+          { opacity: 0.90, scale: 1.35, ease: "power1.inOut", duration: 1 }, 
+          0
         );
+
+        // Text sequences
+        tl.fromTo(text1, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.15 }, 0.05)
+          .to(text1, { opacity: 0, y: -40, duration: 0.15 }, 0.25)
+          
+          .fromTo(text2, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.15 }, 0.40)
+          .to(text2, { opacity: 0, y: -40, duration: 0.15 }, 0.60)
+          
+          .fromTo(text3, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.15 }, 0.75)
+          .to(text3, { opacity: 0, y: -40, duration: 0.15 }, 0.95);
       };
 
       if (video.readyState >= 1) {
@@ -97,7 +112,7 @@ export function BrandStory() {
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.65, pointerEvents: "none" }}
+        style={{ opacity: 0.85, pointerEvents: "none" }}
       >
         <source src="/videos/torcida_scrub.mp4" type="video/mp4" />
       </video>
@@ -111,21 +126,36 @@ export function BrandStory() {
         }}
       />
 
-      {/* ── MARQUEE: faixa de texto centralizada ────────────── */}
-      {/* overflow-hidden no wrapper garante que o texto não extrapole a tela */}
-      <div className="absolute inset-0 z-20 flex items-center overflow-hidden">
-        <div
-          ref={marqueeRef}
-          className="whitespace-nowrap flex items-center leading-none font-black uppercase font-heading tracking-tighter will-change-transform"
-          style={{ fontSize: "clamp(3rem, 12vw, 14rem)" }}
-        >
-          <span className="mr-10 text-white">Tradição.</span>
-          <span className="mr-10 text-[var(--color-primary)]">Raça.</span>
-          <span className="mr-10 text-white">Pioneirismo.</span>
-          <span className="mr-10 text-[var(--color-primary)]">Alto da Glória.</span>
-          <span className="mr-10 text-white">Tradição.</span>
-          <span className="mr-10 text-[var(--color-primary)]">Raça.</span>
+      {/* ── NARRATIVA APPLE-STYLE ────────────── */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        
+        <div ref={text1Ref} className="absolute text-center px-6 max-w-4xl" style={{ opacity: 0 }}>
+          <h2 className="text-4xl md:text-7xl font-black font-heading text-white uppercase tracking-tighter leading-none mb-4 drop-shadow-2xl">
+            O Fogo <span className="text-[var(--color-primary)] opacity-90 drop-shadow-2xl">Jamais</span><br/>Se Apaga.
+          </h2>
+          <p className="text-white/80 font-semibold md:text-xl tracking-wide max-w-xl mx-auto drop-shadow-lg">
+            A paixão que inflama o estádio. Uma força visceral que precede a razão.
+          </p>
         </div>
+
+        <div ref={text2Ref} className="absolute text-center px-6 max-w-4xl" style={{ opacity: 0 }}>
+          <h2 className="text-4xl md:text-7xl font-black font-heading text-white uppercase tracking-tighter leading-none mb-4 drop-shadow-2xl">
+            Do Alto da Glória <br/><span className="text-[var(--color-primary)] opacity-90 drop-shadow-2xl">Para o Mundo.</span>
+          </h2>
+          <p className="text-white/80 font-semibold md:text-xl tracking-wide max-w-xl mx-auto drop-shadow-lg">
+            Mais do que um clube esportivo, uma verdadeira instituição delineada pelo peso da tradição.
+          </p>
+        </div>
+
+        <div ref={text3Ref} className="absolute text-center px-6 max-w-4xl" style={{ opacity: 0 }}>
+          <h2 className="text-4xl md:text-7xl font-black font-heading text-[var(--color-primary)] opacity-90 uppercase tracking-tighter leading-none mb-4 drop-shadow-2xl">
+            Isto é <br/><span className="text-white drop-shadow-2xl">Coritiba.</span>
+          </h2>
+          <p className="text-white/80 font-semibold md:text-xl tracking-wide max-w-xl mx-auto drop-shadow-lg">
+            Ousadia técnica, vanguarda estética e uma devoção imaterial eternizada em cada tecido.
+          </p>
+        </div>
+
       </div>
     </section>
   );

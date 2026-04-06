@@ -33,7 +33,7 @@ export function ProductCard({ product, className, large = false }: ProductCardPr
     <Link
       href={href}
       className={cn(
-        "group relative overflow-hidden bg-neutral-900 rounded-[4px] cursor-pointer block",
+        "group relative overflow-hidden bg-neutral-900 rounded-[4px] cursor-pointer block hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(96,232,97,0.15)] transition-all duration-500 ease-[var(--ease-premium)]",
         large ? "aspect-square md:aspect-[3/4]" : "aspect-[4/5]",
         className
       )}

@@ -70,77 +70,7 @@ body {
   }
 }
 
-/* ─────────────────────────────────────────
-   Neon Border — Breathing Glow Premium
-   Fora do @layer: garante que Tailwind v4
-   não remova propriedades não convencionais
-───────────────────────────────────────── */
 
-/* Base: stroke fino + glow apertado colado na borda */
-.neon-border {
-  -webkit-text-stroke: 1.5px rgba(96, 232, 97, 0.75);
-  paint-order: stroke fill;
-  text-shadow:
-    0 0 3px rgba(96, 232, 97, 0.7),
-    0 0 8px rgba(96, 232, 97, 0.35);
-  animation: neon-breathe 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  transition:
-    text-shadow 0.5s ease-in-out,
-    -webkit-text-stroke-color 0.5s ease-in-out;
-  will-change: text-shadow;
-}
-
-/* Hover individual — para o loop e intensifica o brilho */
-.neon-border:hover {
-  -webkit-text-stroke-color: rgba(96, 232, 97, 1);
-  text-shadow:
-    0 0 3px rgba(255, 255, 255, 0.7),
-    0 0 6px rgba(96, 232, 97, 1),
-    0 0 14px rgba(96, 232, 97, 0.65),
-    0 0 24px rgba(96, 232, 97, 0.3);
-  animation-play-state: paused;
-}
-
-/* SplitType gera spans filhos — herdar o efeito neon em cada char */
-.neon-border .char,
-.neon-border .word {
-  -webkit-text-stroke: inherit;
-  paint-order: stroke fill;
-  text-shadow: inherit;
-}
-
-/* Keyframe: pulso suave de respiração */
-@keyframes neon-breathe {
-  0%, 100% {
-    text-shadow:
-      0 0 2px rgba(96, 232, 97, 0.5),
-      0 0 6px rgba(96, 232, 97, 0.25);
-    -webkit-text-stroke-color: rgba(96, 232, 97, 0.6);
-  }
-  50% {
-    text-shadow:
-      0 0 3px rgba(96, 232, 97, 0.95),
-      0 0 10px rgba(96, 232, 97, 0.6),
-      0 0 20px rgba(96, 232, 97, 0.3);
-    -webkit-text-stroke-color: rgba(96, 232, 97, 1);
-  }
-}
-
-/* Mobile: versão leve */
-@media (max-width: 768px) {
-  .neon-border {
-    -webkit-text-stroke: 1px rgba(96, 232, 97, 0.7);
-    animation: neon-breathe-mobile 3s ease-in-out infinite;
-  }
-  .neon-border:hover {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes neon-breathe-mobile {
-  0%, 100% { text-shadow: 0 0 2px rgba(96, 232, 97, 0.5); }
-  50%       { text-shadow: 0 0 6px rgba(96, 232, 97, 0.85); }
-}
 
 /* ─── News Ticker: scroll infinito com CSS puro ──────────── */
 .ticker-track {

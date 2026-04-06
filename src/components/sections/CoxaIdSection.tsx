@@ -39,8 +39,18 @@ export function CoxaIdSection() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full py-20 lg:py-32 bg-[#050505] overflow-hidden border-t border-white/5"
+      className="relative w-full bg-[#050505] overflow-hidden border-t border-white/5"
+      style={{ paddingTop: "clamp(64px, 8vw, 128px)", paddingBottom: "clamp(32px, 4vw, 64px)" }}
     >
+      {/* ── GRADIENT BRIDGE — conecta suavemente ao footer ── */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, rgba(96,232,97,0.025) 60%, rgba(0,0,0,0.6) 100%)",
+        }}
+      />
       {/* BACKGROUND TEXTURE / GLOW */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[600px] max-h-[600px] bg-[var(--color-primary)] opacity-5 blur-[150px] rounded-full pointer-events-none" />
 

@@ -13,6 +13,7 @@ interface StoreState {
   favoriteItems: Product[];
   isCartOpen: boolean;
   isFavoritesOpen: boolean;
+  isCartVibrating: boolean;
 
   // Cart Actions
   addToCart: (product: Product, size: string) => void;
@@ -20,6 +21,7 @@ interface StoreState {
   updateQuantity: (productId: string, size: string, quantity: number) => void;
   toggleCart: () => void;
   setCartOpen: (isOpen: boolean) => void;
+  triggerCartVibration: () => void;
 
   // Favorites Actions
   toggleFavorite: (product: Product) => void;
@@ -34,8 +36,12 @@ export const useStore = create<StoreState>()(
       favoriteItems: [],
       isCartOpen: false,
       isFavoritesOpen: false,
+      isCartVibrating: false,
 
-      addToCart: (product, size) => set((state) => {
+      addToCart: (product, size) => {
+        get().triggerCartVibration(); // Start the 1.5s shake globally
+        
+        set((state) => {
         const existingItem = state.cartItems.find(
           (item) => item.product.id === product.id && item.size === size
         );
@@ -53,7 +59,8 @@ export const useStore = create<StoreState>()(
           cartItems: [...state.cartItems, { product, size, quantity: 1 }],
           isCartOpen: true 
         };
-      }),
+      });
+      },
 
       removeFromCart: (productId, size) => set((state) => ({
         cartItems: state.cartItems.filter(
@@ -79,6 +86,13 @@ export const useStore = create<StoreState>()(
       }),
 
       setCartOpen: (isOpen) => set(() => ({ isCartOpen: isOpen })),
+
+      triggerCartVibration: () => {
+        set({ isCartVibrating: true });
+        setTimeout(() => {
+          set({ isCartVibrating: false });
+        }, 1500);
+      },
 
       toggleFavorite: (product) => set((state) => {
         const exists = state.favoriteItems.some((p) => p.id === product.id);
