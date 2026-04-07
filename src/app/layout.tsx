@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Saira, Saira_Condensed } from "next/font/google";
 import "./globals.css";
+import "@/lib/gsap"; // Global GSAP plugin registration — runs once
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
 const saira = Saira({

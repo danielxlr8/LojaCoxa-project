@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/ui/Navbar";
 import { Hero } from "@/components/sections/Hero";
+import { FeaturedDrop } from "@/components/sections/FeaturedDrop";
 import { LatestReleases } from "@/components/sections/LatestReleases";
 import { Categories } from "@/components/sections/Categories";
 import { BrandStory } from "@/components/sections/BrandStory";
@@ -11,6 +12,7 @@ export default function Home() {
     <main className="min-h-screen bg-[var(--color-background-dark)] selection:bg-[var(--color-primary)] selection:text-black">
       <Navbar />
       <Hero />
+      <FeaturedDrop />
       <LatestReleases />
       <Categories />
       <BrandStory />

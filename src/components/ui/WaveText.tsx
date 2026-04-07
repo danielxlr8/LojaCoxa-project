@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface WaveTextProps {
@@ -16,11 +15,13 @@ interface WaveTextProps {
 export function WaveText({ text, className, wrapperClassName, turbulence = false, filterId = "wave-filter" }: WaveTextProps) {
   const filterRef = useRef<SVGFETurbulenceElement>(null);
   const animFrameRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLSpanElement>(null);
 
-  // Animate the SVG turbulence baseFrequency via RAF (only when turbulence mode enabled)
+  // Animate SVG turbulence via RAF — pauses outside viewport to save CPU
   useEffect(() => {
     if (!turbulence) return;
     let time = 0;
+
     const animate = () => {
       time += 0.012;
       if (filterRef.current) {
@@ -28,8 +29,28 @@ export function WaveText({ text, className, wrapperClassName, turbulence = false
       }
       animFrameRef.current = requestAnimationFrame(animate);
     };
-    animFrameRef.current = requestAnimationFrame(animate);
+
+    // Only run RAF while element is in viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!animFrameRef.current) animFrameRef.current = requestAnimationFrame(animate);
+          } else {
+            if (animFrameRef.current) {
+              cancelAnimationFrame(animFrameRef.current);
+              animFrameRef.current = null;
+            }
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    if (containerRef.current) observer.observe(containerRef.current);
+
     return () => {
+      observer.disconnect();
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [turbulence]);
@@ -37,7 +58,7 @@ export function WaveText({ text, className, wrapperClassName, turbulence = false
   // ── MODE A: SVG feTurbulence — fluid organic distortion for big headlines ──
   if (turbulence) {
     return (
-      <span className={cn("inline-flex items-center relative", wrapperClassName)}>
+      <span ref={containerRef} className={cn("inline-flex items-center relative", wrapperClassName)}>
         <svg width="0" height="0" style={{ position: "absolute", overflow: "hidden" }}>
           <defs>
             <filter id={filterId} x="-5%" y="-20%" width="110%" height="140%">
@@ -53,23 +74,20 @@ export function WaveText({ text, className, wrapperClassName, turbulence = false
     );
   }
 
-  // ── MODE B (default): Letter-by-letter stagger cascade — crisp and readable ──
+  // ── MODE B (default): Letter-by-letter stagger — CSS animation, zero JS overhead ──
   return (
     <span className={cn("inline-flex h-full", wrapperClassName)}>
       {text.split("").map((char, index) => (
-        <motion.span
+        <span
           key={index}
-          animate={{ y: [0, -5, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: index * 0.07,
-          }}
           className={cn("inline-block", className)}
+          style={{
+            animation: "wave-float 2s ease-in-out infinite",
+            animationDelay: `${index * 0.07}s`,
+          }}
         >
           {char === " " ? "\u00A0" : char}
-        </motion.span>
+        </span>
       ))}
     </span>
   );

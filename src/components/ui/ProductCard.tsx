@@ -6,6 +6,7 @@ import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Product } from "@/data/products";
 import { useStore } from "@/store/useStore";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -16,6 +17,8 @@ interface ProductCardProps {
 export function ProductCard({ product, className, large = false }: ProductCardProps) {
   const { toggleFavorite, favoriteItems } = useStore();
   const isFavorite = favoriteItems.some((f) => f.id === product.id);
+  // Hover image is lazy — loads only after first mouseenter
+  const [hoverReady, setHoverReady] = useState(false);
 
   const priceFormatted = product.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const href = `/produto/${product.slug}`;
@@ -32,6 +35,7 @@ export function ProductCard({ product, className, large = false }: ProductCardPr
   return (
     <Link
       href={href}
+      onMouseEnter={() => setHoverReady(true)}
       className={cn(
         "group relative overflow-hidden bg-neutral-900 rounded-[4px] cursor-pointer block hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(96,232,97,0.15)] transition-all duration-500 ease-[var(--ease-premium)]",
         large ? "aspect-square md:aspect-[3/4]" : "aspect-[4/5]",
@@ -45,17 +49,19 @@ export function ProductCard({ product, className, large = false }: ProductCardPr
           src={mainImg}
           alt={product.name}
           fill
-          className="object-cover transform scale-100 group-hover:scale-[1.05] transition-transform duration-[1.8s] ease-[var(--ease-fluid)] opacity-100 group-hover:opacity-0"
+          className="object-cover transform scale-100 group-hover:scale-[1.05] transition-transform duration-500 ease-[var(--ease-fluid)] opacity-100 group-hover:opacity-0"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        {/* Hover Scenario Image */}
-        <Image
-          src={hoverImg}
-          alt={`${product.name} hover`}
-          fill
-          className="object-cover transform scale-[1.05] group-hover:scale-100 transition-all duration-[1.8s] ease-[var(--ease-fluid)] opacity-0 group-hover:opacity-100"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+        {/* Hover Scenario Image — rendered only after first mouseenter */}
+        {hoverReady && (
+          <Image
+            src={hoverImg}
+            alt={`${product.name} hover`}
+            fill
+            className="object-cover transform scale-[1.05] group-hover:scale-100 transition-all duration-500 ease-[var(--ease-fluid)] opacity-0 group-hover:opacity-100"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        )}
         {/* Luxury gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-1000"></div>
       </div>

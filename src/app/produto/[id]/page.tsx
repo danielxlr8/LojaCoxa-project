@@ -67,11 +67,11 @@ export default function ProductPage() {
     PRODUCTS[0];
 
   const { addToCart, toggleFavorite, favoriteItems } = useStore();
-  
+
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const isFavorite = favoriteItems.some(f => f.id === product.id);
+  const isFavorite = favoriteItems.some((f) => f.id === product.id);
 
   // Modos de visualização
   const [isMagnified, setIsMagnified] = useState(false);
@@ -250,7 +250,8 @@ export default function ProductPage() {
               >
                 <div className="absolute top-4 left-4 z-10">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-black text-white">
-                    <span className="ball-spin inline-block">⚽</span> Sócio Coxa -20%
+                    <span className="ball-spin inline-block">⚽</span> Sócio
+                    Coxa -20%
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 z-10 flex flex-col gap-2 pointer-events-auto">
@@ -261,7 +262,10 @@ export default function ProductPage() {
                     }}
                     className={`p-2.5 transition-all duration-300 ${isFavorite ? "bg-black/80 text-[var(--color-primary)] border border-white/20" : "bg-white text-black hover:bg-gray-200"}`}
                   >
-                    <Heart size={18} fill={isFavorite ? "currentColor" : "none"} />
+                    <Heart
+                      size={18}
+                      fill={isFavorite ? "currentColor" : "none"}
+                    />
                   </button>
                   <button
                     onClick={(e) => {
@@ -281,13 +285,16 @@ export default function ProductPage() {
               {/* Botão < Esquerda */}
               <button
                 onClick={() => {
-                  const el = document.getElementById('thumb-track');
-                  if (el) el.scrollBy({ left: -140, behavior: 'smooth' });
+                  const el = document.getElementById("thumb-track");
+                  if (el) el.scrollBy({ left: -140, behavior: "smooth" });
                 }}
                 aria-label="Fotos anteriores"
                 className="absolute left-0 top-0 bottom-0 z-20 w-10 md:w-12 flex items-center justify-center bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/90 to-transparent opacity-0 group-hover/thumbs:opacity-100 transition-opacity duration-300 cursor-pointer hover:from-[#0A0A0A]"
               >
-                <ChevronLeft size={22} className="text-white/80 hover:text-[var(--color-primary)] transition-colors" />
+                <ChevronLeft
+                  size={22}
+                  className="text-white/80 hover:text-[var(--color-primary)] transition-colors"
+                />
               </button>
 
               {/* Track de Thumbnails */}
@@ -316,13 +323,16 @@ export default function ProductPage() {
               {/* Botão > Direita */}
               <button
                 onClick={() => {
-                  const el = document.getElementById('thumb-track');
-                  if (el) el.scrollBy({ left: 140, behavior: 'smooth' });
+                  const el = document.getElementById("thumb-track");
+                  if (el) el.scrollBy({ left: 140, behavior: "smooth" });
                 }}
                 aria-label="Próximas fotos"
                 className="absolute right-0 top-0 bottom-0 z-20 w-10 md:w-12 flex items-center justify-center bg-gradient-to-l from-[#0A0A0A] via-[#0A0A0A]/90 to-transparent opacity-0 group-hover/thumbs:opacity-100 transition-opacity duration-300 cursor-pointer hover:from-[#0A0A0A]"
               >
-                <ChevronRight size={22} className="text-white/80 hover:text-[var(--color-primary)] transition-colors" />
+                <ChevronRight
+                  size={22}
+                  className="text-white/80 hover:text-[var(--color-primary)] transition-colors"
+                />
               </button>
             </div>
           </div>
@@ -383,8 +393,12 @@ export default function ProductPage() {
               <div className="mt-4 flex items-center gap-2 bg-[#E9ECEF] text-black px-4 py-3 rounded-[2px]">
                 <Star size={16} fill="currentColor" strokeWidth={1} />
                 <span>
-                  <span className="font-bold text-sm tracking-wide">Tendência! </span>
-                  <span className="text-sm">Este artigo tem muita procura.</span>
+                  <span className="font-bold text-sm tracking-wide">
+                    Tendência!{" "}
+                  </span>
+                  <span className="text-sm">
+                    Este artigo tem muita procura.
+                  </span>
                 </span>
               </div>
             </div>
@@ -394,7 +408,7 @@ export default function ProductPage() {
                 <span className="text-sm font-bold text-white uppercase tracking-wider">
                   Tamanho
                 </span>
-                <button 
+                <button
                   onClick={() => setIsSizeGuideOpen(true)}
                   className="text-xs text-[var(--color-primary)] hover:underline underline-offset-2 transition-colors font-bold uppercase tracking-widest flex items-center gap-1"
                 >
@@ -437,7 +451,7 @@ export default function ProductPage() {
                 ref={addToCartBtnRef}
                 onClick={() => {
                   if (selectedSize) {
-                    for(let i = 0; i < quantity; i++) {
+                    for (let i = 0; i < quantity; i++) {
                       addToCart(product, selectedSize);
                     }
                   }
@@ -708,7 +722,7 @@ export default function ProductPage() {
                 if (selectedSize) {
                   // Add quantity times (it only adds 1 by default, but we can call it multiple times or adjust our store to accept quantity.)
                   // For now, our store accepts quantity 1 and sums up. We'll iterate the quantity state:
-                  for(let i = 0; i < quantity; i++) {
+                  for (let i = 0; i < quantity; i++) {
                     addToCart(product, selectedSize);
                   }
                 }
@@ -735,7 +749,7 @@ export default function ProductPage() {
           className={`relative w-full h-full transition-transform duration-500 ease-[var(--ease-spring)] ${isMagnified ? "scale-[0.7] rotate-[90deg] opacity-70" : "scale-100 rotate-0 opacity-100"}`}
         >
           <Image
-            src="/imagens/coritiba-cursor.png"
+            src="/imagens/coritiba-cursor.webp"
             alt="Coritiba Cursor"
             fill
             className="object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
@@ -743,17 +757,25 @@ export default function ProductPage() {
         </div>
       </div>
 
-      <ShareModal 
+      <ShareModal
         isOpen={isShareOpen}
         onClose={() => setIsShareOpen(false)}
         productName={product.name}
-        productUrl={typeof window !== "undefined" ? window.location.href : `https://coxastore.com.br/produto/${product.slug}`}
+        productUrl={
+          typeof window !== "undefined"
+            ? window.location.href
+            : `https://coxastore.com.br/produto/${product.slug}`
+        }
       />
 
-      <SizeGuideModal 
-        isOpen={isSizeGuideOpen} 
-        onClose={() => setIsSizeGuideOpen(false)} 
-        productType={product.name.toLowerCase().includes("jogador") ? "jogador" : "torcedor"}
+      <SizeGuideModal
+        isOpen={isSizeGuideOpen}
+        onClose={() => setIsSizeGuideOpen(false)}
+        productType={
+          product.name.toLowerCase().includes("jogador")
+            ? "jogador"
+            : "torcedor"
+        }
       />
     </main>
   );

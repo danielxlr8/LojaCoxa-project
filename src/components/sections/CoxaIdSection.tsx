@@ -9,31 +9,47 @@ import { ArrowUpRight } from "lucide-react";
 export function CoxaIdSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const mockupRef = useRef<HTMLDivElement>(null);
+  const scrollWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    if (!sectionRef.current || !mockupRef.current || !scrollWrapRef.current) return;
 
-    if (sectionRef.current && mockupRef.current) {
-      // Float Animation for Phone
-      gsap.to(mockupRef.current, {
-        y: -30,
-        repeat: -1,
-        yoyo: true,
-        duration: 3,
-        ease: "power1.inOut"
-      });
+    // Float animation on the inner element (mockupRef)
+    const floatTween = gsap.to(mockupRef.current, {
+      y: -30,
+      repeat: -1,
+      yoyo: true,
+      duration: 3,
+      ease: "power1.inOut",
+    });
 
-      // Parallax on Scroll
-      gsap.to(mockupRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-        y: -80,
-      });
-    }
+    // Scroll parallax on the outer wrapper (scrollWrapRef) — no conflict
+    gsap.to(scrollWrapRef.current, {
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+      },
+      y: -80,
+    });
+
+    // Pause float tween while section is offscreen — stops idle GSAP cycles
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            floatTween.play();
+          } else {
+            floatTween.pause();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -79,7 +95,7 @@ export function CoxaIdSection() {
           </div>
 
           {/* MOCKUP IMAGE COM EFEITO PARALLAX */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end relative h-[400px] lg:h-[600px]">
+          <div ref={scrollWrapRef} className="order-1 lg:order-2 flex justify-center lg:justify-end relative h-[400px] lg:h-[600px]">
              <div 
                ref={mockupRef}
                className="relative w-full max-w-[300px] lg:max-w-[400px] h-full"

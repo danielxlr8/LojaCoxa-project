@@ -69,7 +69,7 @@ export function Reveal({
   }, [delay, direction, type]);
 
   return (
-    <div ref={ref} className={cn("will-change-transform", className)}>
+    <div ref={ref} className={cn(className)}>
       {children}
     </div>
   );

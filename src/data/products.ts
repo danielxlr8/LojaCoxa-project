@@ -382,7 +382,7 @@ export const PRODUCTS: Product[] = [
     brand: "Diadora",
     sizes: ["M", "G", "GG"],
     images: [
-      "/imagens/Jaqueta-1.png",
+      "/imagens/Jaqueta-1.webp",
       "https://cdn.fanmarket.app.br/69c91c0269231ba67ed431fd_camisa-goleiro-1-mas.png",
     ],
     description:
@@ -430,9 +430,9 @@ export const PRODUCTS: Product[] = [
     brand: "Coritiba Oficial",
     sizes: ["P", "G", "3G"],
     images: [
-      "/imagens/camisa-3.png",
-      "/imagens/camisa-3-costas.png",
-      "/imagens/camisa-3-lado.png",
+      "/imagens/camisa-3.webp",
+      "/imagens/camisa-3-costas.webp",
+      "/imagens/camisa-3-lado.webp",
     ],
     description:
       "Apresentamos a Camisa Coritiba Oficial Jogo 3 Masculino Branco e Verde, uma peça exclusiva para torcedores que desejam demonstrar seu amor pelo Coritiba Foot Ball Club. Confeccionada em poliéster de alta qualidade, esta camisa oferece conforto, leveza e respirabilidade, ideal para acompanhar os jogos ou usar no dia a dia. Com design moderno que integra as cores branco e verde, ela representa com autenticidade a tradição do clube. ",

@@ -6,7 +6,6 @@ import SplitType from "split-type";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(ScrollTrigger);
 
 export function TextReveal({ 
   children, 
@@ -26,25 +25,19 @@ export function TextReveal({
 
     // We only split simple text nodes safely
     // Adding 'lines' creates wrappers that we can clip.
-    const text = new SplitType(textRef.current, { types: "lines,words,chars" });
+    const text = new SplitType(textRef.current, { types: "lines,words" });
 
-    // Premium timeline setup
-    // We animate words or chars bursting up from a clipped line
     gsap.fromTo(
-      text.chars,
-      { 
-        yPercent: 120, 
-        rotateX: -40,
-        rotateZ: 2,
-        opacity: 0
+      text.words,
+      {
+        yPercent: 110,
+        opacity: 0,
       },
       {
         yPercent: 0,
-        rotateX: 0,
-        rotateZ: 0,
         opacity: 1,
         duration: 1.4,
-        stagger: 0.015,
+        stagger: 0.04,
         ease: "power4.out",
         delay: delay,
         scrollTrigger: {
@@ -62,7 +55,7 @@ export function TextReveal({
 
   // Use overflow-hidden to clip the words as they animate up
   return (
-    <Component ref={textRef} className={cn("overflow-hidden [perspective:1000px]", className)}>
+    <Component ref={textRef} className={cn("overflow-hidden", className)}>
       {children}
     </Component>
   );

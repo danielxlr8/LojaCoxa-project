@@ -75,7 +75,7 @@ body {
 /* ─── News Ticker: scroll infinito com CSS puro ──────────── */
 .ticker-track {
   animation: ticker-scroll 35s linear infinite;
-  will-change: transform;
+  contain: layout;
 }
 
 /* Pausa ao hover para leitura */
@@ -210,7 +210,6 @@ body {
 /* ─── Soccer Ball Spin Animation ────────────────────────── */
 .ball-spin {
   animation: ball-roll 4s linear infinite;
-  will-change: transform;
   display: inline-block;
 }
 
@@ -219,3 +218,8 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* ─── WaveText Mode B: CSS wave per letter — zero JS overhead ──── */
+@keyframes wave-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}

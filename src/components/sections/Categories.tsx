@@ -1,10 +1,32 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 
 export function Categories() {
+  const decorVideoRef = useRef<HTMLVideoElement>(null);
+  // Pause decorative video when section is offscreen — saves GPU/CPU
+  useEffect(() => {
+    const video = decorVideoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="py-32 bg-[var(--color-background-dark)] w-full relative z-10">
       <div className="container mx-auto px-6">
@@ -16,6 +38,7 @@ export function Categories() {
                 <span className="text-[var(--color-primary)]">da Loja</span>
               </h2>
               <video
+                ref={decorVideoRef}
                 src="/videos/Coxa.mp4"
                 autoPlay
                 loop
@@ -28,6 +51,7 @@ export function Categories() {
                   WebkitMaskImage:
                     "radial-gradient(ellipse at center, black 60%, transparent 100%)",
                   filter: "contrast(2.05)",
+                  contain: "paint layout",
                 }}
               />
             </div>
@@ -53,7 +77,7 @@ export function Categories() {
             className="md:col-span-2 group relative overflow-hidden rounded-[2px] h-[400px] md:h-[560px] cursor-pointer block"
           >
             <Image
-              src="/imagens/uniformes.png"
+              src="/imagens/uniformes.webp"
               alt="Uniformes de Jogo"
               fill
               className="object-cover transform scale-100 group-hover:scale-110 transition-transform duration-[2s] ease-[var(--ease-premium)]"
@@ -108,7 +132,7 @@ export function Categories() {
               className="group relative overflow-hidden rounded-[2px] h-[160px] md:h-[150px] cursor-pointer bg-neutral-800 block"
             >
               <Image
-                src="/imagens/casual.png"
+                src="/imagens/casual.webp"
                 alt="Casual / Viagem"
                 fill
                 className="object-cover transform scale-100 group-hover:scale-110 transition-transform duration-[2s] ease-[var(--ease-premium)] opacity-70"

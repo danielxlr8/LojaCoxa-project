@@ -9,7 +9,10 @@ import googlePlayIconData from "../../../public/imagens/google play.json";
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white pb-12 overflow-hidden border-t border-white/5" style={{ paddingTop: "clamp(40px, 5vw, 80px)" }}>
+    <footer
+      className="bg-black text-white pb-12 overflow-hidden border-t border-white/5"
+      style={{ paddingTop: "clamp(40px, 5vw, 80px)" }}
+    >
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 mb-32">
           <div className="lg:col-span-4 lg:pr-8">
@@ -150,7 +153,7 @@ export function Footer() {
               <div className="aspect-video w-full rounded-[4px] overflow-hidden border border-white/10 bg-neutral-900 group relative shadow-2xl">
                 <iframe
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/lgmv7yfVdAg?autoplay=0&mute=0"
+                  src="https://www.youtube.com/embed/_YvJgRACV48?autoplay=1&mute=1&loop=1&playlist=_YvJgRACV48&controls=0&modestbranding=1&rel=0"
                   title="Coritiba Bastidores"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

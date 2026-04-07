@@ -2,13 +2,11 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { PRODUCTS } from "@/data/products";
 
-gsap.registerPlugin(ScrollTrigger);
 
 export function LatestReleases() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -101,25 +99,8 @@ export function LatestReleases() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goNext, goPrev]);
 
-  // ScrollTrigger: subtle entrance animation when section comes into view
-  useEffect(() => {
-    if (!sectionRef.current || !trackRef.current) return;
-
-    const st = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top 75%",
-      once: true,
-      onEnter: () => {
-        gsap.fromTo(
-          trackRef.current,
-          { opacity: 0, x: 60 },
-          { opacity: 1, x: 0, duration: 1, ease: "power3.out" }
-        );
-      },
-    });
-
-    return () => st.kill();
-  }, []);
+  // ScrollTrigger entrance animation removed — Framer Motion whileInView
+  // handles opacity + transform reveals on each individual card.
 
   // Block mouse wheel from scrolling the page while hovering the carousel area
   // Instead interpret horizontal intent — but per user request, we do NOT
@@ -215,7 +196,7 @@ export function LatestReleases() {
       <div className="relative px-6 overflow-hidden">
         <div
           ref={trackRef}
-          className="flex gap-4 md:gap-6 w-max will-change-transform"
+          className="flex gap-4 md:gap-6 w-max"
         >
           {PRODUCTS.map((item, index) => (
             <motion.div

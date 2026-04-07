@@ -41,7 +41,9 @@ export function HoverVideoPlayer({ videoSrc, posterSrc, className, posterClassNa
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        preload="none"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ contain: "paint layout" }}
       />
       {posterSrc && (
         <img 

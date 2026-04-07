@@ -40,7 +40,7 @@ export function MagneticEffect({ children, strength = 0.25, className }: Magneti
   }, [strength]);
 
   return (
-    <div ref={containerRef} className={className} style={{ willChange: "transform", display: "inline-block" }}>
+    <div ref={containerRef} className={className} style={{ display: "inline-block" }}>
       {children}
     </div>
   );
